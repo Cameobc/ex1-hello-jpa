@@ -25,12 +25,13 @@ public class JpaMain {
         try {
 
             //영속
-            Member findMember1 = em.find(Member.class, 101L);
-            Member findMember2 = em.find(Member.class, 101L);
+            Member member = new Member(150L, "A");
+            Member member2 = new Member(160L, "B");
 
-            //영속 엔티티의 동일성 보장
-            System.out.println("Result = " + (findMember1 == findMember2));
-
+            // 쓰기지연 sql 저장소에 저장함
+            em.persist(member);
+            em.persist(member2);
+            System.out.println("====================");
 
             // 트랜잭션 커밋 시점에 db에 쿼리가 날아간다.
             tx.commit();
