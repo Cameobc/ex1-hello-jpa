@@ -25,15 +25,15 @@ public class JpaMain {
         try {
 
             //영속
-            Member member = new Member(150L, "A");
-            Member member2 = new Member(160L, "B");
+            Member member = em.find(Member.class, 150L);
+            member.setName("ZZZZ");
 
-            // 쓰기지연 sql 저장소에 저장함
-            em.persist(member);
-            em.persist(member2);
             System.out.println("====================");
 
             // 트랜잭션 커밋 시점에 db에 쿼리가 날아간다.
+            // 변경감지(dirty checking)
+            // 커밋을 하면 flush() 를 호출하여 엔티티와 스냅샷을 비교함
+            // 변경됐을 경우 쓰기지연 SQL 저장소에 update 쿼리를 저장함
             tx.commit();
         }catch (Exception e){
             e.printStackTrace();
