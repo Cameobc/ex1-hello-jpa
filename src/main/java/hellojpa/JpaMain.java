@@ -26,11 +26,11 @@ public class JpaMain {
 
             //영속
             Member member = new Member();
-            //member.setId("ID_A");
             member.setUseraname("C");
-
+            System.out.println("====================");
+            // IDENTITY 전략에서만 예외적으로 호출 시점에 DB에 insert 쿼리를 날린다.
             em.persist(member);
-
+            System.out.println("member.getId() = " + member.getId());
             System.out.println("====================");
             tx.commit();
         }catch (Exception e){
