@@ -25,15 +25,16 @@ public class JpaMain {
         try {
 
             //영속
-            Member member = new Member(200L, "member200");
-            em.persist(member);
+            Member member = em.find(Member.class, 150L);
+            member.setName("AAAAAA");
+            
+            //비영속 -> JAP에서 관리하지 않음
+            em.detach(member);
 
-            // 플러시를 한다고 1차 캐시가 지워지지 않는다.
-            // 변경감지가 일어나고, 영속성 컨텍스트에 있는 쓰기지연 SQL 저장소에 있는 것들이 반영되는 과정
-            em.flush();
+            //영속성 컨텍스트를를 통으로 초기화
+           //em.clear();
 
             System.out.println("====================");
-
             tx.commit();
         }catch (Exception e){
             e.printStackTrace();
