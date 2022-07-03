@@ -25,12 +25,22 @@ public class JpaMain {
         try {
 
             //영속
-            Member member = new Member();
-            member.setUseraname("C");
+            Member member1 = new Member();
+            member1.setUseraname("A");
+
+            Member member2 = new Member();
+            member2.setUseraname("B");
+
+            Member member3 = new Member();
+            member3.setUseraname("C");
             System.out.println("====================");
-            // IDENTITY 전략에서만 예외적으로 호출 시점에 DB에 insert 쿼리를 날린다.
-            em.persist(member);
-            System.out.println("member.getId() = " + member.getId());
+            // Sequence 전략에서는 여기서 시퀀스를 가져오는 것이 실행된다.
+            em.persist(member1); // 1, 51
+            em.persist(member2); // memory
+            em.persist(member3); // memory
+            System.out.println("member1.getId() = " + member1.getId());
+            System.out.println("member2.getId() = " + member2.getId());
+            System.out.println("member3.getId() = " + member3.getId());
             System.out.println("====================");
             tx.commit();
         }catch (Exception e){
