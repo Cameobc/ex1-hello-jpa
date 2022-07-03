@@ -25,14 +25,12 @@ public class JpaMain {
         try {
 
             //영속
-            Member member = em.find(Member.class, 150L);
-            member.setName("AAAAAA");
-            
-            //비영속 -> JAP에서 관리하지 않음
-            em.detach(member);
+            Member member = new Member();
+            member.setId(2L);
+            member.setUsername("B");
+            member.setRoleType(RoleType.ADMIN);
 
-            //영속성 컨텍스트를를 통으로 초기화
-           //em.clear();
+            em.persist(member);
 
             System.out.println("====================");
             tx.commit();
