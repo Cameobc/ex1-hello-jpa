@@ -25,15 +25,15 @@ public class JpaMain {
         try {
 
             //영속
-            Member member = em.find(Member.class, 150L);
-            member.setName("ZZZZ");
+            Member member = new Member(200L, "member200");
+            em.persist(member);
+
+            // 플러시를 한다고 1차 캐시가 지워지지 않는다.
+            // 변경감지가 일어나고, 영속성 컨텍스트에 있는 쓰기지연 SQL 저장소에 있는 것들이 반영되는 과정
+            em.flush();
 
             System.out.println("====================");
 
-            // 트랜잭션 커밋 시점에 db에 쿼리가 날아간다.
-            // 변경감지(dirty checking)
-            // 커밋을 하면 flush() 를 호출하여 엔티티와 스냅샷을 비교함
-            // 변경됐을 경우 쓰기지연 SQL 저장소에 update 쿼리를 저장함
             tx.commit();
         }catch (Exception e){
             e.printStackTrace();
