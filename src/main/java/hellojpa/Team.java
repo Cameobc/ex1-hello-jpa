@@ -16,6 +16,11 @@ public class Team {
     //1 대 다
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
+
+    public void addMember(Member member) {
+        member.setTeam(this);
+        members.add(member);
+    }
     public Long getId() {
         return id;
     }

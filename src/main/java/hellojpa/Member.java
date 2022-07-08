@@ -41,6 +41,12 @@ public class Member {
         return team;
     }
 
+    // 로직이 들어가면 set 이 아닌 change 를 사용함
+    /*public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
+    }*/
+
     public void setTeam(Team team) {
         this.team = team;
     }
