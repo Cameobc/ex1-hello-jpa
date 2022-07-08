@@ -1,6 +1,8 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -13,13 +15,14 @@ public class Member {
     @Column(name = "USENAME")
     private String useraname;
 
-   /* @Column(name ="TEAM_ID")
-    private Long teamId;*/
 
-    // 멤버가 M 팀이 1
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
+    @ManyToMany
+    @JoinTable(name = "MEMBER_PRODUCT")
+    private List<Product> products = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -37,17 +40,4 @@ public class Member {
         this.useraname = useraname;
     }
 
-    public Team getTeam() {
-        return team;
-    }
-
-    // 로직이 들어가면 set 이 아닌 change 를 사용함
-    /*public void changeTeam(Team team) {
-        this.team = team;
-        team.getMembers().add(this);
-    }*/
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
 }
