@@ -24,24 +24,19 @@ public class JpaMain {
         
         try {
 
-            //영속
-            Member member1 = new Member();
-            member1.setUseraname("A");
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            Member member2 = new Member();
-            member2.setUseraname("B");
+            Member member = new Member();
+            member.setUseraname("member1");
+            member.setTeamId(team.getId());
+            em.persist(member);
 
-            Member member3 = new Member();
-            member3.setUseraname("C");
-            System.out.println("====================");
-            // Sequence 전략에서는 여기서 시퀀스를 가져오는 것이 실행된다.
-            em.persist(member1); // 1, 51
-            em.persist(member2); // memory
-            em.persist(member3); // memory
-            System.out.println("member1.getId() = " + member1.getId());
-            System.out.println("member2.getId() = " + member2.getId());
-            System.out.println("member3.getId() = " + member3.getId());
-            System.out.println("====================");
+            Member findMember = em.find(Member.class, member.getId());
+            Long findTeamId = findMember.getTeamId();
+            Team findTeam = em.find(Team.class, findTeamId);
+
             tx.commit();
         }catch (Exception e){
             e.printStackTrace();
