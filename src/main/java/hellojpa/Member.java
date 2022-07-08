@@ -13,8 +13,13 @@ public class Member {
     @Column(name = "USENAME")
     private String useraname;
 
-    @Column(name ="TEAM_ID")
-    private Long teamId;
+   /* @Column(name ="TEAM_ID")
+    private Long teamId;*/
+
+    // 멤버가 M 팀이 1
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
     public Long getId() {
         return id;
@@ -32,11 +37,11 @@ public class Member {
         this.useraname = useraname;
     }
 
-    public Long getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

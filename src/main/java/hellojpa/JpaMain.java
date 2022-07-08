@@ -30,12 +30,19 @@ public class JpaMain {
 
             Member member = new Member();
             member.setUseraname("member1");
-            member.setTeamId(team.getId());
+            member.setTeam(team);
             em.persist(member);
 
+            em.flush();
+            em.clear();
+
             Member findMember = em.find(Member.class, member.getId());
-            Long findTeamId = findMember.getTeamId();
-            Team findTeam = em.find(Team.class, findTeamId);
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam.getName() = " + findTeam.getName());
+
+            //멤버의 팀을 바꾸고 싶어!
+            Team newTeam = em.find(Team.class, 100L);
+            findMember.setTeam(newTeam);
 
             tx.commit();
         }catch (Exception e){
